@@ -55,6 +55,15 @@ expectTypeOf(
 ).toEqualTypeOf<never>()
 
 /**
+ * Properly recognizes that `File` is an object and should not have subkeys
+ */
+type FileSupport = { files: File[], file: File }
+expectTypeOf(
+  0 as never as DeepKeysOfType<FileSupport, File>,
+).toEqualTypeOf<`files | files[${number}]` | 'file'>()
+
+
+/**
  * Properly handles deep object nesting like so:
  */
 type NestedSupport = { meta: { mainUser: User } }
@@ -149,6 +158,7 @@ type DiscriminatedUnionValueFixed = DeepValue<DiscriminatedUnion, 'baz'>
 expectTypeOf(
   0 as never as DiscriminatedUnionValueFixed,
 ).toEqualTypeOf<boolean>()
+
 
 /**
  * Properly handles `unknown` edgecase like so:

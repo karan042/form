@@ -138,7 +138,7 @@ export type DeepKeysAndValuesImpl<
   ? TAcc | UnknownDeepKeyAndValue<TParent>
   : unknown extends T // this stops runaway recursion when T is any
     ? T
-    : T extends string | number | boolean | bigint | Date
+    : T extends string | number | boolean | bigint | Date | File
       ? TAcc
       : T extends ReadonlyArray<any>
         ? number extends T['length']
